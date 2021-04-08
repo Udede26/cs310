@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_app/login_background.dart';
 import 'package:flutter_app/signup_screen.dart';
@@ -7,11 +9,47 @@ import 'package:flutter_app/rounded_input_field.dart';
 import 'package:flutter_app/rounded_password_field.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_app/welcome.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/http.dart';
+
+
+class User {
+  String email;
+  String password;
+  User(this.email, this.password);
+}
+
+
 
 class Body extends StatelessWidget {
-  const Body({
+   Body({
     Key key,
   }) : super(key: key);
+
+
+  User user= User('','');
+
+
+   _makePostRequest() async {
+     // set up POST request arguments
+     String email = user.email;
+     String password = user.password;
+     String url = 'https://jsonplaceholder.typicode.com/posts';
+     Map<String, String> headers = {"Content-type": "application/json"};
+     String json = '{"email": "$email", "password": "$password"}';
+     // make POST request
+     Response response = await post(  Uri.parse('http://localhost:3000/login'), headers: headers, body: json);
+     // check the status code for the result
+     int statusCode = response.statusCode;
+     // this API passes back the id of the new item added to the body
+     String body = response.body;
+     // {
+     //   "title": "Hello",
+     //   "body": "body text",
+     //   "userId": 1,
+     //   "id": 101
+     // }
+   }
 
   @override
   Widget build(BuildContext context) {
@@ -51,14 +89,14 @@ class Body extends StatelessWidget {
             SizedBox(height: size.height * 0.03),
             RoundedInputField(
               hintText: "Your Email",
-              onChanged: (value) {},
+              onChanged: (value) {user.email = value;},
             ),
             RoundedPasswordField(
-              onChanged: (value) {},
+              onChanged: (value) {user.password = value;},
             ),
             RoundedButton(
               text: "LOGIN",
-              press: () {},
+              press: () {_makePostRequest();},
             ),
             SizedBox(height: size.height * 0.03),
             AlreadyHaveAnAccountCheck(
@@ -78,4 +116,7 @@ class Body extends StatelessWidget {
       ),
     );
   }
+
+
+
 }
