@@ -1,4 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/welcome_body.dart';
+import 'package:flutter_app/signup_screen.dart';
+import 'package:flutter_app/welcome.dart';
+import 'package:flutter_app/colors.dart';
+import 'package:flutter_app/styles.dart';
+
+
+import 'welcome.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -12,6 +20,8 @@ class WalkThrough extends StatefulWidget {
 }
 
 class _WalkThroughState extends State {
+
+
 
   int current_page= 1;
   int total_page = 4;
@@ -37,6 +47,14 @@ class _WalkThroughState extends State {
     if(current_page == 4){
       setState(() {
         current_page = 4;
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) {
+              return WelcomeScreen();
+            },
+          ),
+        );
       });
 
     }
@@ -70,75 +88,64 @@ class _WalkThroughState extends State {
       appBar: AppBar(
         title:Text(
           app_titles[current_page-1],
-          style: TextStyle(
-            color:Color(0xFF757575),
-            letterSpacing: -1.0,
-          ),
+          style: styles.BarTitleTextStyle
         ),
         centerTitle: true,
-        backgroundColor: Color(0xFFD1D1D6),
+        backgroundColor: AppColors.mainColor,
       ),
-    body: Column(
-      crossAxisAlignment: CrossAxisAlignment.center,
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children:[
-        Text(
-         page_titles[current_page-1],
-         style: TextStyle(
-           fontSize: 32,
-           letterSpacing: -1.0,
-           color:Color(0xFF229A98),
-           fontWeight: FontWeight.w800,
-
-         ),
-        ),
-        CircleAvatar(
-          backgroundImage: NetworkImage(img_url[current_page-1]),
-          radius: 200.0,
-        ),
-        Text(
-          captions[current_page-1],
-          style: TextStyle(
-            fontSize: 24,
-            letterSpacing: -1.0,
-            color:Color(0xFF757575),
-            fontWeight: FontWeight.w300,
-
+    body: Container(
+      color: AppColors.bodyColor,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children:[
+          Text(
+           page_titles[current_page-1],
+           style: styles.HeadingTitleTextStyle
           ),
-        ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children:[
-            FlatButton(
-              onPressed: prevPage,
-                color: Color(0xFFF2F2F7),
+          CircleAvatar(
+            backgroundImage: NetworkImage(img_url[current_page-1]),
+            radius: 200.0,
+          ),
+          Text(
+            captions[current_page-1],
+            style: styles.minorTextStyle
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children:[
+              FlatButton(
+                onPressed: prevPage,
+                  color: AppColors.buttonColor,
 
-                child: Text('Prev',
-                style: TextStyle(
-                  color:Color(0xFF229A98),
-                ),
-                ),
-            ),
-            Text(
-              '$current_page'+'/'+'$total_page',
-              style:TextStyle(
-                color:Color(0xFF229A98),
+                  child: Text('Prev',
+                  style: TextStyle(
+                    color:AppColors.mainTexts,
+                  ),
+                  ),
               ),
-            ),
-            FlatButton(
-              onPressed: nextPage,
-              color: Color(0xFFF2F2F7),
-
-              child: Text('Next',
-                style: TextStyle(
-                  color:Color(0xFF229A98),
+              Text(
+                '$current_page'+'/'+'$total_page',
+                style:TextStyle(
+                  color:AppColors.subTexts,
                 ),
               ),
-            ),
-          ],
-        ),
-      ],
+              FlatButton(
+                onPressed: nextPage,
+
+                color:AppColors.buttonColor,
+
+                child: Text('Next',
+                  style: TextStyle(
+                    color:AppColors.mainTexts,
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     ),
     );
   }

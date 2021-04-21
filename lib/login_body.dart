@@ -11,7 +11,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_app/welcome.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
-
+import 'package:flutter_app/colors.dart';
 
 class User {
   String email;
@@ -56,62 +56,65 @@ class Body extends StatelessWidget {
     Size size = MediaQuery.of(context).size;
     return Background(
       child: SingleChildScrollView(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            SizedBox(
-              width: 150,
-              child: Align(
-                alignment: Alignment.topLeft,
-                child:  RoundedButton(
-                  text: "BACK",
-                  press: () { Navigator.push(
+        child: Container(
+          color: AppColors.bodyColor,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              SizedBox(
+                width: 150,
+                child: Align(
+                  alignment: Alignment.topLeft,
+                  child:  RoundedButton(
+                    text: "BACK",
+                    press: () { Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) {
+                          return WelcomeScreen();
+                        },
+                      ),
+                    );},
+                  ),
+                ),
+              ),
+
+              Text(
+                "LOGIN",
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+              SizedBox(height: size.height * 0.03),
+              Image.asset(
+                "assets/icons/bestcart.jpeg",
+                height: size.height * 0.35,
+              ),
+              SizedBox(height: size.height * 0.03),
+              RoundedInputField(
+                hintText: "Your Email",
+                onChanged: (value) {user.email = value;},
+              ),
+              RoundedPasswordField(
+                onChanged: (value) {user.password = value;},
+              ),
+              RoundedButton(
+                text: "LOGIN",
+                press: () {_makePostRequest();},
+              ),
+              SizedBox(height: size.height * 0.03),
+              AlreadyHaveAnAccountCheck(
+                press: () {
+                  Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) {
-                        return WelcomeScreen();
+                        return SignUpScreen();
                       },
                     ),
-                  );},
-                ),
+                  );
+                },
               ),
-            ),
-
-            Text(
-              "LOGIN",
-              style: TextStyle(fontWeight: FontWeight.bold),
-            ),
-            SizedBox(height: size.height * 0.03),
-            Image.asset(
-              "assets/icons/book.png",
-              height: size.height * 0.35,
-            ),
-            SizedBox(height: size.height * 0.03),
-            RoundedInputField(
-              hintText: "Your Email",
-              onChanged: (value) {user.email = value;},
-            ),
-            RoundedPasswordField(
-              onChanged: (value) {user.password = value;},
-            ),
-            RoundedButton(
-              text: "LOGIN",
-              press: () {_makePostRequest();},
-            ),
-            SizedBox(height: size.height * 0.03),
-            AlreadyHaveAnAccountCheck(
-              press: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) {
-                      return SignUpScreen();
-                    },
-                  ),
-                );
-              },
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
