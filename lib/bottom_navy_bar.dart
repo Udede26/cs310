@@ -38,21 +38,14 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
         inactiveColorPrimary: Colors.grey,
       ),
       PersistentBottomNavBarItem(
-          icon: Icon(Icons.add),
-          title: ("Add"),
-          activeColorPrimary: Colors.blueAccent,
+          icon: Icon(Icons.person),
+          title: ("Profile"),
           activeColorSecondary: Colors.white,
           inactiveColorPrimary: Colors.white,
          ),
       PersistentBottomNavBarItem(
-        icon: Icon(Icons.message),
-        title: ("Messages"),
-        activeColorPrimary: Colors.deepOrange,
-        inactiveColorPrimary: Colors.grey,
-      ),
-      PersistentBottomNavBarItem(
-        icon: Icon(Icons.settings),
-        title: ("Settings"),
+        icon: Icon(Icons.notifications),
+        title: ("Notifications"),
         activeColorPrimary: Colors.indigo,
         inactiveColorPrimary: Colors.grey,
       ),
@@ -66,7 +59,7 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
         context,
         controller: _controller,
         items: _navBarsItems(),
-        screens: [Container(),SearchScreen(),Container(),Container(),Container()],
+        screens: [Container(),SearchScreen(),Container(),Container()],
         confineInSafeArea: true,
         backgroundColor: Colors.white,
         handleAndroidBackButtonPress: true,
@@ -111,7 +104,7 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
           duration: Duration(milliseconds: 200),
         ),
         navBarStyle:
-        NavBarStyle.style17, // Choose the nav bar style with this property
+        NavBarStyle.style1, // Choose the nav bar style with this property
       ),
     );
   }
