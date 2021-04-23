@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/search_explore_body.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
+import 'profile.dart';
 
 class ProvidedStylesExample extends StatefulWidget {
   final BuildContext menuScreenContext;
+
   ProvidedStylesExample({Key key, this.menuScreenContext}) : super(key: key);
 
   @override
@@ -59,7 +61,7 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
         context,
         controller: _controller,
         items: _navBarsItems(),
-        screens: [Container(),SearchScreen(),Container(),Container()],
+        screens: [Container(),SearchScreen(),ProfileView(_hideNavBar),Container()],
         confineInSafeArea: true,
         backgroundColor: Colors.white,
         handleAndroidBackButtonPress: true,
