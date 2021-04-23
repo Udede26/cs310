@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_app/search_explore_body.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
 class ProvidedStylesExample extends StatefulWidget {
@@ -61,12 +62,11 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text('Navigation Bar Demo')),
       body: PersistentTabView(
         context,
         controller: _controller,
         items: _navBarsItems(),
-        screens: [Container(),Container(),Container(),Container(),Container()],
+        screens: [Container(),SearchScreen(),Container(),Container(),Container()],
         confineInSafeArea: true,
         backgroundColor: Colors.white,
         handleAndroidBackButtonPress: true,
