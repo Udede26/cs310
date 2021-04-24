@@ -15,14 +15,17 @@ class PostCard extends StatelessWidget {
     return Align(
       child: Container(
         height: 150,
-        margin: EdgeInsets.all(0),
+        width: 150,
+        margin: EdgeInsets.all(2),
         child: Card(
-          margin: EdgeInsets.fromLTRB(0, 0, 0.0, 0),
+          semanticContainer: true,
+          clipBehavior: Clip.antiAliasWithSaveLayer,
+          margin: EdgeInsets.all(0),
           shape: RoundedRectangleBorder(
             side:BorderSide(width:0),
             borderRadius: BorderRadius.circular(0),
           ),
-          child: FittedBox(child: Image.network('https://cdn.shopify.com/s/files/1/0533/2089/files/placeholder-images-image_large.png?format=jpg&quality=90&v=1530129081'),fit:BoxFit.fill,),
+          child: FittedBox(child: Image.asset(post.address),fit:BoxFit.cover,),
         ),
       ),
     );

@@ -1,8 +1,8 @@
 class Post {
-  String text;
+  String address;
   String date;
   int likes;
   int comments;
 
-  Post({ this.text, this.date, this.likes, this.comments });
+  Post({ this.address, this.date, this.likes, this.comments });
 }
