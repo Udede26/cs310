@@ -3,6 +3,7 @@
 import 'package:flutter_app/utils/data.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/views/post_item.dart';
+import 'package:flutter_app/colors.dart';
 
 
 
@@ -21,6 +22,7 @@ class _FeedViewState extends State<Feed> {
     return Scaffold(
       backgroundColor: Colors.grey[200],
       appBar: AppBar(
+        backgroundColor: AppColors.mainColor,
         title:Text("Feeds"),
         centerTitle:true,
       ),

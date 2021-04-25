@@ -12,7 +12,7 @@ import 'package:flutter_app/welcome.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/http.dart';
 import 'package:flutter_app/colors.dart';
-
+import 'package:flutter_app/bottom_navy_bar.dart';
 class User {
   String email;
   String password;
@@ -98,7 +98,14 @@ class Body extends StatelessWidget {
               ),
               RoundedButton(
                 text: "LOGIN",
-                press: () {_makePostRequest();},
+                press: () { Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) {
+                      return ProvidedStylesExample();
+                    },
+                  ),
+                );},
               ),
               SizedBox(height: size.height * 0.03),
               AlreadyHaveAnAccountCheck(

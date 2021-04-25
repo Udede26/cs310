@@ -209,7 +209,7 @@ class _ProfileViewState extends State<ProfileView>{
               Column(
                 children: <Widget>[
                   Container(
-                    height: 550,
+                    height: 350,
                     child: GridView.count(
                       padding: EdgeInsets.all(5.0),
                       crossAxisCount: 3,

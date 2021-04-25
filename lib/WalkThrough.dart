@@ -4,9 +4,12 @@ import 'package:flutter_app/signup_screen.dart';
 import 'package:flutter_app/welcome.dart';
 import 'package:flutter_app/colors.dart';
 import 'package:flutter_app/styles.dart';
-
-
 import 'welcome.dart';
+import 'dart:async';
+
+import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+
 
 void main() {
   runApp(MaterialApp(
@@ -21,6 +24,8 @@ class WalkThrough extends StatefulWidget {
 
 class _WalkThroughState extends State {
 
+  Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
+  Future<int> _counter;
 
 
   int current_page= 1;
@@ -82,8 +87,27 @@ class _WalkThroughState extends State {
     }
   }
 
+  _incrementCounter() async{
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    bool seen = (prefs.getBool('seen4') ?? false);
+    if (seen) {
+      Navigator.of(context).pushReplacement(
+          new MaterialPageRoute(builder: (context) => new WelcomeScreen()));
+    } else {
+      prefs.setBool('seen4', true);
+    }
+  }
+  @override
+  void initState() {
+    super.initState();
+
+      _incrementCounter();
+
+  }
+
   @override
   Widget build(BuildContext context) {
+
     return Scaffold(
       appBar: AppBar(
         title:Text(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_app/utils/data.dart';
+import 'package:flutter_app/colors.dart';
 
 
 class Notifications extends StatefulWidget {
@@ -12,6 +13,7 @@ class _NotificationsState extends State<Notifications> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        backgroundColor: AppColors.mainColor,
         title: Text(
           "Notifications",
         ),
