@@ -1,15 +1,21 @@
+import 'package:firebase_analytics/observer.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/search_explore_body.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 import 'profile.dart';
 import 'package:flutter_app/views/feed.dart';
 import 'package:flutter_app/views/notifications.dart';
+import 'package:flutter_app/utils/authentication.dart';
+import 'package:firebase_analytics/firebase_analytics.dart';
+
 
 class ProvidedStylesExample extends StatefulWidget {
   final BuildContext menuScreenContext;
-
-  ProvidedStylesExample({Key key, this.menuScreenContext}) : super(key: key);
-
+  final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
+  ProvidedStylesExample({Key key, this.menuScreenContext,User user, this.analytics, this.observer}) : _user = user, super(key: key);
+  final User _user;
   @override
   _ProvidedStylesExampleState createState() => _ProvidedStylesExampleState();
 }
@@ -18,11 +24,18 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
   PersistentTabController _controller;
   bool _hideNavBar;
 
+   Future <void>_setCurrentScreen() async {
+    await widget.analytics.setCurrentScreen(screenName: 'Navigation screen');
+    print('hello world');
+  }
+
   @override
   void initState() {
     super.initState();
+    _setCurrentScreen();
     _controller = PersistentTabController(initialIndex: 0);
     _hideNavBar = false;
+
   }
 
 
@@ -55,6 +68,7 @@ class _ProvidedStylesExampleState extends State<ProvidedStylesExample> {
       ),
     ];
   }
+
 
   @override
   Widget build(BuildContext context) {

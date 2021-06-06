@@ -1,3 +1,5 @@
+import 'package:firebase_analytics/firebase_analytics.dart';
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_app/welcome_body.dart';
 import 'package:flutter_app/signup_screen.dart';
@@ -18,6 +20,11 @@ void main() {
 }
 
 class WalkThrough extends StatefulWidget {
+  final FirebaseAnalytics analytics;
+  final FirebaseAnalyticsObserver observer;
+
+  const WalkThrough({Key key, this.analytics, this.observer}) : super(key: key);
+
   @override
   _WalkThroughState createState() => _WalkThroughState();
 }
@@ -26,6 +33,11 @@ class _WalkThroughState extends State {
 
   Future<SharedPreferences> _prefs = SharedPreferences.getInstance();
   Future<int> _counter;
+
+  Future <void>_setCurrentScreen4() async {
+    await analytics.setCurrentScreen(screenName: ' Walkthrough');
+  }
+
 
 
   int current_page= 1;
@@ -89,18 +101,20 @@ class _WalkThroughState extends State {
 
   _incrementCounter() async{
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    bool seen = (prefs.getBool('seen4') ?? false);
+    bool seen = (prefs.getBool('seen5') ?? false);
     if (seen) {
       Navigator.of(context).pushReplacement(
           new MaterialPageRoute(builder: (context) => new WelcomeScreen()));
     } else {
-      prefs.setBool('seen4', true);
+      prefs.setBool('seen5', true);
     }
   }
   @override
   void initState() {
     super.initState();
-
+    _setCurrentScreen4().then((value){
+      print('Async done');
+    });
       _incrementCounter();
 
   }

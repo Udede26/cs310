@@ -1,3 +1,7 @@
+import 'package:firebase_database/firebase_database.dart';
+
+import 'package:shared_preferences/shared_preferences.dart';
+
 import 'postCard.dart';
 import 'package:flutter/material.dart';
 import 'post.dart';
@@ -10,6 +14,7 @@ import 'dart:math';
 Random random = Random();
 
 class ProfileView extends StatefulWidget {
+
   bool hidebar;
   ProfileView(this.hidebar);
   @override
@@ -36,16 +41,17 @@ List<Post> posts = [
   Post(address: "assets/images/cm${random.nextInt(10)}.jpeg", date: '19 March', likes: 30, comments: 10),
   Post(address: "assets/images/cm${random.nextInt(10)}.jpeg", date: '18 March', likes: 20, comments: 20),
 
-
 ];
 
 class _ProfileViewState extends State<ProfileView>{
-
+  static FirebaseDatabase referenceDb = FirebaseDatabase.instance;
   int postCount = posts.length;
+
 
 
   @override
   Widget build(BuildContext context) {
+    final ref = referenceDb.reference();
     return Scaffold(
         backgroundColor: AppColors.bodyColor,
         appBar: AppBar(
@@ -103,18 +109,45 @@ class _ProfileViewState extends State<ProfileView>{
                       ),
                     ],
                   ),
-                  RaisedButton(
-                    child: Text('Edit Profile'),
-                    color: AppColors.buttonColor,
-                    onPressed: () {Navigator.of(context,rootNavigator: true).push(
-                      MaterialPageRoute(
-                        builder: (context) {
-                          return editprofile();
+                  Column(
+                    children: [
+                      RaisedButton(
+                        child: Text('Edit Profile'),
+                        color: AppColors.buttonColor,
+                        onPressed: () {Navigator.of(context,rootNavigator: true).push(
+                          MaterialPageRoute(
+                            builder: (context) {
+                              return editprofile();
+                            },
+                          ),
+                        );
                         },
                       ),
-                    );
-                    },
+                      RaisedButton(
+                        child: Text('Add Post'),
+                        color: AppColors.buttonColor,
+                        onPressed: () async {
+
+
+                          
+                          SharedPreferences prefs = await SharedPreferences.getInstance();
+                          String id = prefs.getString('uid');
+
+                          ref.child("users").child(id).child('posts').child('count').once().then((DataSnapshot data) async {
+
+                          ref.child('users').child(id).child('posts').child(data.value.toString()).child('description').set("Cok guzel gunbatimi").asStream();
+                          ref.child('users').child(id).child('posts').child(data.value.toString()).child('likes').push().set('dummy').asStream();
+                          ref.child('users').child(id).child('posts').child(data.value.toString()).child('comments').child('comment').child('id').set('user').asStream();
+                          ref.child('users').child(id).child('posts').child(data.value.toString()).child('comments').child('comment').child('content').set('Gercekten cok guzel').asStream();
+                          ref.child('users').child(id).child('posts').child(data.value.toString()).child('repost').push().set('dummy').asStream();
+                          ref.child('users').child(id).child('posts').child(data.value.toString()).child('date').set('1.2.3').asStream();
+                          ref.child('users').child(id).child('posts').child('count').set(data.value + 1).asStream();
+                          });
+                        },
+                      ),
+                    ],
                   ),
+
                 ],
               ),
 
@@ -209,7 +242,7 @@ class _ProfileViewState extends State<ProfileView>{
               Column(
                 children: <Widget>[
                   Container(
-                    height: 350,
+                    height: 500,
                     child: GridView.count(
                       padding: EdgeInsets.all(5.0),
                       crossAxisCount: 3,
@@ -233,3 +266,4 @@ class _ProfileViewState extends State<ProfileView>{
     );
   }
 }
+

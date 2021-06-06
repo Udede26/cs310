@@ -1,3 +1,4 @@
+import 'package:firebase_analytics/observer.dart';
 import 'package:flutter/material.dart';
 import 'package:persistent_bottom_nav_bar/persistent-tab-view.dart';
 
@@ -6,9 +7,10 @@ import 'colors.dart';
 import 'package:flutter_app/post.dart';
 import 'package:flutter_app/postcard.dart';
 import 'dart:math';
-
+import 'package:firebase_analytics/firebase_analytics.dart';
 
 Random random = Random();
+
 
 List<Post> posts = [
   Post(address: "assets/images/cm${random.nextInt(10)}.jpeg", date: '19 March', likes: 30, comments: 10),
@@ -57,11 +59,17 @@ List<Post> posts = [
 ];
 
 class SearchScreen extends StatefulWidget{
+
+
+
+  const SearchScreen({Key key}) : super(key: key);
+
   @override
   _SearchScreenState createState() => _SearchScreenState();
 }
 
 class _SearchScreenState extends State<SearchScreen> {
+
   @override
   Widget build(BuildContext context) {
     // TODO: implement build
@@ -114,4 +122,6 @@ class _SearchScreenState extends State<SearchScreen> {
       ),
     );
   }
+
+
 }
